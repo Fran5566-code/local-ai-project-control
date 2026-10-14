@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#080e1c">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Inter:wght@400;500;600;700;800&family=Noto+Sans+TC:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{color-scheme:dark;--bg:#080e1c;--panel:#101b2f;--line:#263750;--text:#e8f2ff;--muted:#8da3bd;--cyan:#46dfed;--blue:#548bff;--green:#52d4ad;--amber:#eab66b;--purple:#b49bfb;--red:#ed899e}
+    
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;background:radial-gradient(circle at 85% -10%,#17375b 0,transparent 32%),radial-gradient(circle at -15% 35%,#10294a 0,transparent 28%),var(--bg);color:var(--text);font-family:Inter,'Noto Sans TC',sans-serif;min-height:100vh}
+    body:before{content:"";position:fixed;inset:0;pointer-events:none;background-image:linear-gradient(#8ab6e508 1px,transparent 1px),linear-gradient(90deg,#8ab6e508 1px,transparent 1px);background-size:38px 38px;mask-image:linear-gradient(to bottom,#0006,transparent 80%)}
+    button{font:inherit}
+    a{color:inherit;text-decoration:none}
+    .shell{max-width:1370px;margin:auto;padding:26px 36px 64px;position:relative}
+    .top{display:flex;align-items:center;justify-content:space-between;gap:18px;padding-bottom:24px;border-bottom:1px solid #2a3d55}
+    .brand{display:flex;gap:14px;align-items:center}
+    .mark{width:43px;height:43px;border:1px solid #4adceb88;border-radius:12px;display:grid;place-items:center;box-shadow:0 0 28px #28d2e528,inset 0 0 22px #28d2e51b;color:var(--cyan);font:700 18px 'DM Mono';letter-spacing:-3px}
+    .brand-name{font-size:14px;font-weight:800;letter-spacing:.15em}
+    .brand-sub{font:11px 'DM Mono';color:var(--muted);letter-spacing:.13em;margin-top:5px}
+    .top-right{display:flex;align-items:center;gap:18px;color:var(--muted);font:11px 'DM Mono'}
+    .live{display:flex;align-items:center;gap:8px;color:var(--green);letter-spacing:.13em}
+    .live:before{content:"";width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 12px var(--green)}
+    .refresh{background:#11263a;border:1px solid #2c5573;border-radius:8px;color:#c5e8f4;padding:9px 12px;cursor:pointer}
+    .refresh:hover{border-color:var(--cyan)}
+    .eyebrow{color:var(--cyan);font:11px 'DM Mono';letter-spacing:.22em}
+    .hero{display:flex;justify-content:space-between;align-items:end;gap:30px;padding:49px 0 34px}
+    .hero h1{font-size:clamp(32px,4vw,58px);letter-spacing:-.055em;line-height:1.12;margin:12px 0 14px}
+    .hero h1 span{color:var(--cyan);text-shadow:0 0 36px #39cfdf55}
+    .hero p{color:var(--muted);margin:0;font-size:14px;line-height:1.8}
+    .hero-meta{text-align:right;color:var(--muted);font:11px 'DM Mono';line-height:2}
+    .hero-meta strong{display:block;color:var(--text);font-size:15px;letter-spacing:.08em}
+    .grid{display:grid;gap:17px}
+    .kpis{grid-template-columns:repeat(4,1fr)}
+    .panel,.kpi{background:linear-gradient(145deg,#13233bdf,#0d192bdd);border:1px solid var(--line);border-radius:15px;box-shadow:0 12px 35px #0002,inset 0 1px #ffffff08}
+    .kpi{min-height:137px;padding:19px 22px;position:relative;overflow:hidden}
+    .kpi:after{content:"";position:absolute;right:-30px;top:-55px;width:125px;height:125px;border-radius:50%;background:var(--accent);filter:blur(55px);opacity:.18}
+    .kpi-top{display:flex;justify-content:space-between;align-items:center;color:var(--muted);font-size:12px}
+    .kpi-top b{font:12px 'DM Mono';color:var(--accent)}
+    .kpi-value{font:700 42px 'DM Mono';letter-spacing:-.08em;margin:18px 0 2px}
+    .kpi-note{color:var(--muted);font-size:11px}
+    .main-grid{grid-template-columns:1.36fr .94fr;margin-top:17px}
+    .panel{padding:23px}
+    .section-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:22px}
+    .section-title{font-weight:700;font-size:16px}
+    .section-kicker{font:10px 'DM Mono';color:var(--cyan);letter-spacing:.15em;margin-bottom:7px}
+    .section-side{color:var(--muted);font:11px 'DM Mono'}
+    .progress-row{display:flex;gap:27px;align-items:center}
+    .ring{width:176px;height:176px;border-radius:50%;display:grid;place-items:center;flex:none;position:relative;background:conic-gradient(var(--green) 0 0%,#263c57 0)}
+    .ring:before{content:"";position:absolute;inset:14px;border-radius:50%;background:#101d31}
+    .ring-inner{position:relative;text-align:center}
+    .ring-inner b{font:700 38px 'DM Mono'}
+    .ring-inner small{display:block;color:var(--muted);font-size:11px;margin-top:3px}
+    .bars{flex:1;min-width:0}
+    .bar-item{margin:0 0 13px}
+    .bar-label{display:flex;justify-content:space-between;font-size:12px;color:#bed0e1;margin-bottom:7px}
+    .bar-label b{font:12px 'DM Mono';color:var(--text)}
+    .track{height:6px;background:#26384d;border-radius:10px;overflow:hidden}
+    .fill{height:100%;border-radius:10px;background:var(--color);box-shadow:0 0 12px var(--color)}
+    .next-list{display:grid;gap:9px}
+    .next-item{display:grid;grid-template-columns:58px 1fr;gap:12px;padding:11px 0;border-bottom:1px solid #263750a0}
+    .next-item:last-child{border:0}
+    .next-id{font:11px 'DM Mono';color:var(--cyan);padding-top:3px}
+    .next-title{font-size:12px;font-weight:600}
+    .next-desc{font-size:11px;color:var(--muted);margin-top:5px;line-height:1.55}
+    .section-block{margin-top:36px}
+    .toolbar{display:flex;align-items:center;justify-content:space-between;gap:15px;margin-bottom:18px}
+    .filters{display:flex;gap:7px;overflow:auto}
+    .filter{white-space:nowrap;background:#101e32;border:1px solid #293d56;color:#9eb3c9;border-radius:8px;padding:8px 12px;cursor:pointer;font-size:11px}
+    .filter.active,.filter:hover{color:var(--cyan);border-color:#46dfed75;background:#113042}
+    .feature-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+    .feature{padding:20px;min-height:215px;position:relative;overflow:hidden}
+    .feature:before{content:"";position:absolute;top:0;left:20px;right:20px;height:1px;background:linear-gradient(90deg,transparent,var(--status),transparent)}
+    .feature-top{display:flex;align-items:center;justify-content:space-between}
+    .feature-id{font:11px 'DM Mono';color:var(--cyan)}
+    .badge{font-size:10px;color:var(--status);background:color-mix(in srgb,var(--status) 11%,transparent);border:1px solid color-mix(in srgb,var(--status) 30%,transparent);border-radius:5px;padding:5px 7px}
+    .feature h3{font-size:15px;line-height:1.5;margin:20px 0 11px}
+    .feature p{font-size:11px;color:var(--muted);line-height:1.65;margin:0}
+    .feature-foot{border-top:1px solid #263750;margin-top:17px;padding-top:13px;color:#b7cce0;font-size:11px;line-height:1.6}
+    .feature-foot span{color:var(--cyan);margin-right:7px}
+    .subfeatures{display:grid;gap:8px;margin-top:14px}
+    .subfeature{padding:9px 10px;background:#0b1729;border:1px solid #23344b;border-radius:7px;font-size:11px;color:#b8cce0}
+    .subfeature b{font:10px 'DM Mono';color:var(--cyan);margin-right:7px}
+    .updates{display:grid;gap:0}
+    .update{display:grid;grid-template-columns:90px 65px 1fr;gap:15px;padding:14px 0;border-top:1px solid #263750;color:#bacee0;font-size:12px}
+    .update-date,.update-id{font:11px 'DM Mono';color:var(--muted)}
+    .update-id{color:var(--cyan)}
+    .update strong{font-weight:600;color:var(--text);margin-right:8px}
+    .empty{color:var(--muted);font-size:13px;padding:22px 0}
+    .footer{display:flex;justify-content:space-between;gap:20px;border-top:1px solid #253750;padding-top:20px;margin-top:35px;color:#718ba5;font:10px 'DM Mono';letter-spacing:.07em}
+    .error{border:1px solid #ba5f75;color:#ffcbd5;background:#52273b55;border-radius:10px;padding:15px;margin:18px 0}
+    .skeleton{height:130px;animation:pulse 1.3s infinite alternate}
+    @keyframes pulse{to{opacity:.5}
+    }
+    @media(max-width:1000px){.kpis{grid-template-columns:repeat(2,1fr)}
+    .feature-grid{grid-template-columns:repeat(2,1fr)}
+    }
+    @media(max-width:700px){.shell{padding:19px 16px 42px}
+    .top{align-items:start}
+    .top-right{gap:8px}
+    .top-right .clock{display:none}
+    .hero{padding:36px 0 25px}
+    .hero-meta{display:none}
+    .kpis{gap:10px}
+    .kpi{min-height:118px;padding:15px}
+    .kpi-value{font-size:35px;margin-top:14px}
+    .main-grid,.feature-grid{grid-template-columns:1fr}
+    .progress-row{gap:18px}
+    .ring{width:134px;height:134px}
+    .ring:before{inset:11px}
+    .ring-inner b{font-size:28px}
+    .panel{padding:18px}
+    .toolbar{align-items:start;flex-direction:column}
+    .filters{width:100%}
+    .update{grid-template-columns:75px 1fr;gap:6px}
+    .update-id{display:none}
+    .footer{flex-direction:column}
+    .brand-sub{font-size:9px}
+    }
+    
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <header class="top"><div class="brand"><div class="mark">//</div><div><div class="brand-name">LOCAL AI</div><div class="brand-sub">PROJECT CONTROL SYSTEM</div></div></div><div class="top-right"><span class="live">SYSTEM ONLINE</span><span class="clock" id="clock"></span><button class="refresh" id="refresh" type="button" aria-label="重新整理資料">↻ 更新</button></div></header>
+    <section class="hero"><div><div class="eyebrow">// PROJECT OVERVIEW</div><h1>專案進度<span>控制台.</span></h1><p>本地助理開發狀態一覽。資料來自同一份 Google 試算表。</p></div><div class="hero-meta">LAST SYNC<strong id="lastSync">讀取中</strong>READ ONLY · LIVE DATA</div></section>
+    <div id="error" role="alert"></div>
+    <section class="grid kpis" id="kpis" aria-label="專案指標"></section>
+    <section class="grid main-grid"><div class="panel"><div class="section-head"><div><div class="section-kicker">01 / STATUS DISTRIBUTION</div><div class="section-title">開發狀態分布</div></div><div class="section-side">主要功能</div></div><div class="progress-row"><div class="ring" id="ring"><div class="ring-inner"><b id="progress">—</b><small>完成進度</small></div></div><div class="bars" id="bars"></div></div></div><div class="panel"><div class="section-head"><div><div class="section-kicker">02 / ACTION QUEUE</div><div class="section-title">接下來的工作</div></div><div class="section-side">TOP 5</div></div><div class="next-list" id="nextList"></div></div></section>
+    <section class="section-block"><div class="toolbar"><div><div class="section-kicker">03 / FEATURE MATRIX</div><div class="section-title">功能清單 <span id="featureCount" style="font:12px 'DM Mono';color:var(--muted)"></span></div></div><div class="filters" id="filters" role="group" aria-label="篩選功能狀態"></div></div><div class="feature-grid" id="features"></div></section>
+    <section class="section-block panel"><div class="section-head"><div><div class="section-kicker">04 / ACTIVITY LOG</div><div class="section-title">近期更新</div></div><div class="section-side">LATEST ACTIVITY</div></div><div class="updates" id="updates"></div></section>
+    <footer class="footer"><span>LOCAL AI // PROJECT CONTROL</span><span>唯讀頁面 · 進度於 Google 試算表更新</span></footer>
+  </div>
+  <script>
+    const COLORS={'已完成':'#52d4ad','待驗證':'#548bff','待實作':'#46dfed','待規劃':'#b49bfb','待評估':'#eab66b','待排查':'#ed899e'};
+    const ORDER=['已完成','待驗證','待實作','待規劃','待評估','待排查'];
+    let data=null, filter='全部';
+    const $=id=>document.getElementById(id);
+    const esc=value=>String(value??'').replace(/[&<>"']/g,char=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
+    const main=()=>data.features.filter(f=>f.level==='主要');
+    function render(){
+      const items=main(), subs=data.features.filter(f=>f.level==='子項'), complete=items.filter(f=>f.category==='已完成').length, total=items.length, pct=total?Math.round(complete/total*100):0;
+      const active=items.filter(f=>['待實作','待驗證'].includes(f.category)).length;
+      const metrics=[['主要功能',total,'項主要功能','#46dfed'],['推進中',active,'待實作 / 待驗證','#548bff'],['待規劃',items.filter(f=>f.category==='待規劃').length,'待確認需求','#b49bfb'],['已完成',complete,'以確認完成為準','#52d4ad']];
+      $('kpis').innerHTML=metrics.map(([label,value,note,color],i)=>`<div class="kpi" style="--accent:${color}"><div class="kpi-top"><span>${esc(label)}</span><b>0${i+1} / 04</b></div><div class="kpi-value">${value}</div><div class="kpi-note">${esc(note)}</div></div>`).join('');
+      $('progress').textContent=pct+'%'; $('ring').style.background=`conic-gradient(var(--green) ${pct}%,#263c57 ${pct}%)`;
+      const categories=[...ORDER,...new Set(items.map(f=>f.category).filter(c=>!ORDER.includes(c)))].filter(c=>items.some(f=>f.category===c));
+      $('bars').innerHTML=categories.map(c=>{const n=items.filter(f=>f.category===c).length;return `<div class="bar-item"><div class="bar-label"><span>${esc(c)}</span><b>${n}</b></div><div class="track"><div class="fill" style="--color:${COLORS[c]||'#8da3bd'};width:${Math.round(n/total*100)}%"></div></div></div>`}).join('');
+      $('nextList').innerHTML=items.filter(f=>f.category!=='已完成'&&f.next).slice(0,5).map(f=>`<div class="next-item"><div class="next-id">${esc(f.id)}</div><div><div class="next-title">${esc(f.name)}</div><div class="next-desc">${esc(data.nextById[f.id]||f.next)}</div></div></div>`).join('')||'<div class="empty">目前沒有待辦工作</div>';
+      $('featureCount').textContent=`/ ${total} 項主要功能 · ${subs.length} 項子項`;
+      $('filters').innerHTML=['全部',...categories].map(c=>`<button type="button" class="filter ${filter===c?'active':''}" data-filter="${esc(c)}">${esc(c)}</button>`).join('');
+      const shown=filter==='全部'?items:items.filter(f=>f.category===filter);
+      $('features').innerHTML=shown.map(f=>{const children=subs.filter(s=>s.id.startsWith(f.id+'-'));return `<article class="panel feature" style="--status:${COLORS[f.category]||'#8da3bd'}"><div class="feature-top"><span class="feature-id">${esc(f.id)}</span><span class="badge">${esc(f.status||f.category)}</span></div><h3>${esc(f.name)}</h3><p>${esc(f.result||'尚無目前成果')}</p><div class="feature-foot"><span>↳ NEXT</span>${esc(f.next||'待更新')}</div>${children.length?`<div class="subfeatures">${children.map(s=>`<div class="subfeature"><b>${esc(s.id)}</b>${esc(s.name)} · ${esc(s.status||s.category)}</div>`).join('')}</div>`:''}</article>`}).join('')||'<div class="empty">這個狀態目前沒有功能</div>';
+      $('updates').innerHTML=data.updates.slice(0,6).map(u=>`<div class="update"><span class="update-date">${esc(u.date)}</span><span class="update-id">${esc(u.id)}</span><span><strong>${esc(u.type)}</strong>${esc(u.summary)}</span></div>`).join('')||'<div class="empty">尚無更新紀錄</div>';
+      $('lastSync').textContent=new Date(data.retrievedAt).toLocaleString('zh-TW',{timeZone:'Asia/Taipei',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit'});
+    }
+    const SHEET_ID='1Gvz11LvzKoalal_ZGiUOrMZrsvnMND4P0EQhw-BJEmY';
+    function parseCsv(csv){
+      const rows=[];let row=[],cell='',quoted=false;
+      for(let i=0;i<csv.length;i++){
+        const ch=csv[i];
+        if(quoted){
+          if(ch==='"'&&csv[i+1]==='"'){cell+='"';i++}
+          else if(ch==='"')quoted=false;
+          else cell+=ch;
+        }else if(ch==='"')quoted=true;
+        else if(ch===','){row.push(cell);cell=''}
+        else if(ch==='\n'||ch==='\r'){
+          if(ch==='\r'&&csv[i+1]==='\n')i++;
+          row.push(cell);rows.push(row);row=[];cell='';
+        }else cell+=ch;
+      }
+      if(cell!==''||row.length){row.push(cell);rows.push(row)}
+      return rows.map(row=>row.map(value=>value.trim()));
+    }
+    async function readSheet(name,header){
+      const url=`https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=${encodeURIComponent(name)}&cache=${Date.now()}`;
+      const response=await fetch(url,{cache:'no-store'});
+      if(!response.ok)throw new Error(`${name}：HTTP ${response.status}`);
+      const rows=parseCsv((await response.text()).replace(/^\uFEFF/,''));
+      if(header&&rows[0]?.[0]!==header)throw new Error(`${name}：無法讀取預期資料，請檢查試算表檢視權限`);
+      return rows;
+    }
+    async function load(){
+      $('refresh').disabled=true;$('refresh').textContent='讀取中…';$('error').innerHTML='';
+      try{
+        const [featureRows,updateRows,dashboardRows]=await Promise.all([
+          readSheet('功能清單','編號'),readSheet('更新紀錄','更新日期'),readSheet('Dashboard')
+        ]);
+        const features=featureRows.slice(1).map(row=>({
+          id:row[0]||'',name:row[1]||'',status:row[2]||'',category:row[3]||'',
+          priority:row[4]||'',level:row[5]||'',result:row[6]||'',next:row[7]||'',updated:row[8]||''
+        })).filter(item=>/^F-\d{3}(?:-[A-Z])?$/.test(item.id));
+        const updates=updateRows.slice(1).map(row=>({
+          date:row[0]||'',id:row[1]||'',type:row[2]||'',summary:row[3]||''
+        })).filter(item=>item.date||item.summary).reverse();
+        const nextById={};
+        dashboardRows.forEach(row=>{
+          const match=/^F-\d{3}/.exec(row[0]||'');
+          if(match&&row[1])nextById[match[0]]=row[1];
+        });
+        data={features,updates,nextById,retrievedAt:new Date().toISOString()};
+        render();
+      }catch(err){
+        $('error').innerHTML=`<div class="error">資料讀取失敗：${esc(err.message||err)}</div>`;
+      }finally{
+        $('refresh').disabled=false;$('refresh').textContent='↻ 更新';
+      }
+    }
+    $('filters').addEventListener('click',event=>{const button=event.target.closest('[data-filter]');if(button){filter=button.dataset.filter;render()}});
+    $('refresh').addEventListener('click',load);
+    function tick(){$('clock').textContent=new Date().toLocaleTimeString('zh-TW',{timeZone:'Asia/Taipei',hour12:false})+' TPE'}tick();setInterval(tick,1000);
+    $('kpis').innerHTML=Array(4).fill('<div class="kpi skeleton"></div>').join('');load();
+  </script>
+</body>
+</html>
